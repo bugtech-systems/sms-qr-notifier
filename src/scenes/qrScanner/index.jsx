@@ -6,6 +6,8 @@ import FlipCameraIosIcon from '@mui/icons-material/FlipCameraIos';
 import { API_URL } from "../../commonData";
 import axios from 'axios';
 import moment from 'moment'
+import { mockDataContacts } from "../../data/mockData";
+
 
 const QrScanner = () => {
 const [result, setResult] = useState(null);

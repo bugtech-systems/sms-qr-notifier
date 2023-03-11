@@ -3,13 +3,14 @@ import QRCode from "react-qr-code";
 import Dialog from '@mui/material/Dialog';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { encryptData } from '../scenes/qrScanner/cryptoEncrypt';
 
 export default function QrCode({value, open, setOpen}) {
   
     const handleClose = () => {
           setOpen(false)
     }
+  
   
     console.log(value)
   return (
@@ -34,10 +35,10 @@ export default function QrCode({value, open, setOpen}) {
     
     <Box display="flex" alignItems="center" justifyContent="center" height="80vh" sx={{background: 'white'}}>
     <div style={{ background: 'white', padding: '16px', margin: '50px' }}>
-   {value && value.id &&  <QRCode 
+   {value &&  <QRCode 
        size={256}
        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-       value={JSON.stringify({id: value.id, name: value.name, phone: value.phone})}
+       value={value.id}
        viewBox={`0 0 256 256`}
     />}
 </div>
