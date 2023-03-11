@@ -4,10 +4,14 @@ import { tokens } from "../../theme";
 import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import QrCode from "../../components/QrCode";
+import { useState } from "react";
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [selected, setSelected] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -53,12 +57,14 @@ const Contacts = () => {
   ];
 
   const handleClick = (e) => {
-    console.log(e)
+    setSelected(e.row)
+    setOpen(true)
   }
 
 
   return (
     <Box m="20px">
+    <QrCode value={selected} open={open} setOpen={setOpen}/>
       <Header
         title="STUDENTS"
         subtitle="List of Students Reference"

@@ -5,14 +5,14 @@ import { useState } from "react";
 
 
 const QrScanner = () => {
-const [result, setResult] = useState("No Result")
+const [result, setResult] = useState(null)
   const previewStyle = {
     height: "320px",
     width: "100%",
   }
   
   const handleScan = (data) => {
-    if(!data) return;
+    if(!data) return ;
     setResult(data)
   }
   
@@ -45,8 +45,8 @@ const [result, setResult] = useState("No Result")
           onError={handleError}
           onScan={(e) => handleScan(e)}
           />
+      {result && <p>{JSON.stringify(result)}</p>}
       </Box>
-      <p>{result}</p>
       
     </Box>
   );
