@@ -46,6 +46,10 @@ const [result, setResult] = useState(null);
         flexDirection="column"
       > 
         <QrReader
+         ViewFinder={function noRefCheck(){}}
+         constraints={{
+          facingMode: 'environment',
+         }}
           delay={100}
           style={previewStyle}
           onError={handleError}
