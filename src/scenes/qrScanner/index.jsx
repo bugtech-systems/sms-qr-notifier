@@ -46,12 +46,20 @@ const [view, setView] = useState(false);
         justifyContent="center"
         flexDirection="column"
       > 
+      {result && result.text ?  <Button variant="contained" color="secondary" onClick={() => setResult(null)}>
+      <span>
+      Scan Again</span>
+      </Button> :
       <IconButton
         onClick={() => setView(!view)}
       >
       <FlipCameraIosIcon/>
-      </IconButton>
-      {view ? 
+      </IconButton>}
+      <br/>
+      {result && result.text ? 
+          result && <p>{result.text}</p> : 
+      
+      view ? 
         <QrReader
          key="environmentQR"
           delay={100}
@@ -69,8 +77,7 @@ const [view, setView] = useState(false);
            onError={handleError}
            onScan={(e) => handleScan(e)}
            />
-          }
-      {result && <p>{JSON.stringify(result.text)}</p>}
+       }
       </Box>
       
     </Box>
