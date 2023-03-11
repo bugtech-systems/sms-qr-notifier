@@ -36,7 +36,7 @@ export default function QrCode({value, open, setOpen}) {
    {value && value.id &&  <QRCode 
        size={256}
        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-       value={JSON.stringify({id: value.id, name: value.name})}
+       value={JSON.stringify({id: value.id, name: value.name, phone: value.phone})}
        viewBox={`0 0 256 256`}
     />}
 </div>

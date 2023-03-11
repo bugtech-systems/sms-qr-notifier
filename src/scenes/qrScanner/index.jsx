@@ -3,18 +3,34 @@ import Header from "../../components/Header";
 import QrReader from 'react-qr-scanner'
 import { useEffect, useState } from "react";
 import FlipCameraIosIcon from '@mui/icons-material/FlipCameraIos';
+import { API_URL } from "../../commonData";
+import axios from 'axios';
 
 const QrScanner = () => {
 const [result, setResult] = useState(null);
 const [view, setView] = useState(false);
   const previewStyle = {
-    height: "320px",
+    height: "250px",
     width: "100%",
   }
   
+  const handleSend = async (val) => {
+          console.log(val)
+      // await axios.post(`${API_URL}/send`, {})
+      // .then(({data}) => {
+      //   console.log(data)
+      // }).catch(err => {
+      //   console.log(err)
+      // })
+  
+  
+  }
+  
+  
   const handleScan = (data) => {
     if(!data) return ;
-    setResult(data)
+    setResult(data);
+    handleSend(data)
   }
   
   
