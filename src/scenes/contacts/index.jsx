@@ -52,11 +52,16 @@ const Contacts = () => {
     },
   ];
 
+  const handleClick = (e) => {
+    console.log(e)
+  }
+
+
   return (
     <Box m="20px">
       <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        title="STUDENTS"
+        subtitle="List of Students Reference"
       />
       <Box
         m="40px 0 0 0"
@@ -93,7 +98,10 @@ const Contacts = () => {
         <DataGrid
           rows={mockDataContacts}
           columns={columns}
+          density="compact"
           components={{ Toolbar: GridToolbar }}
+          disableDensitySelector={true}
+          onRowClick={handleClick}
         />
       </Box>
     </Box>
