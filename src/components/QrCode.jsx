@@ -12,7 +12,7 @@ export default function QrCode({value, open, setOpen}) {
     }
   
   
-    console.log(value)
+    console.log(value && value.registrarId)
   return (
     <Dialog 
     fullScreen={true}
@@ -35,10 +35,10 @@ export default function QrCode({value, open, setOpen}) {
     
     <Box display="flex" alignItems="center" justifyContent="center" height="80vh" sx={{background: 'white'}}>
     <div style={{ background: 'white', padding: '16px', margin: '50px' }}>
-   {value &&  <QRCode 
+   {value && value.registrarId && <QRCode 
        size={256}
        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-       value={value.id}
+       value={JSON.stringify(value.registrarId)}
        viewBox={`0 0 256 256`}
     />}
 </div>
