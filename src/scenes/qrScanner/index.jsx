@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import FlipCameraIosIcon from '@mui/icons-material/FlipCameraIos';
 import { API_URL } from "../../commonData";
 import axios from 'axios';
+import moment from 'moment'
 
 const QrScanner = () => {
 const [result, setResult] = useState(null);
@@ -16,6 +17,8 @@ const [view, setView] = useState(false);
   
   const handleSend = async (val) => {
           console.log(val)
+          let msg = `Hi there, ${val.name} Scanned Qr at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!`;
+          console.log(msg)
       // await axios.post(`${API_URL}/send`, {})
       // .then(({data}) => {
       //   console.log(data)

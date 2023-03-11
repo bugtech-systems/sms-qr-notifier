@@ -15,7 +15,8 @@ export default function QrCode({value, open, setOpen}) {
   return (
     <Dialog 
     fullScreen={true}
-    onClose={handleClose} open={open}>
+    onClose={handleClose} open={open}
+    >
     <AppBar sx={{ position: 'relative' }}>
     
      <Toolbar>
@@ -31,7 +32,7 @@ export default function QrCode({value, open, setOpen}) {
           </Toolbar>
     </AppBar>
     
-    <Box display="flex" alignItems="center" justifyContent="center" height="80vh">
+    <Box display="flex" alignItems="center" justifyContent="center" height="80vh" sx={{background: 'white'}}>
     <div style={{ background: 'white', padding: '16px', margin: '50px' }}>
    {value && value.id &&  <QRCode 
        size={256}
