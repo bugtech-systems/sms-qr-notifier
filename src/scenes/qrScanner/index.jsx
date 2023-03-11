@@ -12,23 +12,21 @@ import { mockDataContacts } from "../../data/mockData";
 const QrScanner = () => {
 const [result, setResult] = useState(null);
 const [view, setView] = useState(false);
+const [sent, setSent] = useState(false);
   const previewStyle = {
     height: "250px",
     width: "100%",
   }
   
-  const handleSend = async (val) => {
-          console.log(val)
-          let value = mockDataContacts.find(a => a.id === val);
-            console.log(value)
-          let msg = `Hi there, ${val.name} Scanned Qr at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!`;
-          console.log(msg)
-      // await axios.post(`${API_URL}/send`, {})
-      // .then(({data}) => {
-      //   console.log(data)
-      // }).catch(err => {
-      //   console.log(err)
-      // })
+  const handleSend = async (value) => {
+          let message = `Hi there, ${value.name} Scanned Qr at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!`;
+      await axios.post(`${API_URL}/send`, {phone: value.phone, message, isFlush: true})
+      .then(({data}) => {
+        console.log(data)
+        setSent(true)
+      }).catch(err => {
+        console.log(err)
+      })
   
   
   }
@@ -36,8 +34,11 @@ const [view, setView] = useState(false);
   
   const handleScan = (data) => {
     if(!data) return ;
-    setResult(data);
-    handleSend(data)
+    let value = mockDataContacts.find(a => a.registrarId == data.text);
+
+    
+    setResult(value);
+    handleSend(value)
   }
   
   
@@ -52,7 +53,6 @@ const [view, setView] = useState(false);
         }
   }, [])
   
-  console.log(result)
   return (
     <Box m="20px"
     >
@@ -69,7 +69,7 @@ const [view, setView] = useState(false);
         justifyContent="center"
         flexDirection="column"
       > 
-      {result && result.text ?  <Button variant="contained" color="secondary" onClick={() => setResult(null)}>
+      {result && result.id ?  <Button variant="contained" color="secondary" onClick={() => { setResult(null); setSent(false)}}>
       <span>
       Scan Again</span>
       </Button> :
@@ -79,8 +79,8 @@ const [view, setView] = useState(false);
       <FlipCameraIosIcon/>
       </IconButton>}
       <br/>
-      {result && result.text ? 
-          result && <p>{result.text}</p> : 
+      {result && result.id ? 
+          result && <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column"><p>{result.name}</p> {sent && <p>Message Sent!</p>}</Box> : 
       
       view ? 
         <QrReader

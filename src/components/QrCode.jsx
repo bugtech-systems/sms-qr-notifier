@@ -3,7 +3,6 @@ import QRCode from "react-qr-code";
 import Dialog from '@mui/material/Dialog';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { encryptData } from '../scenes/qrScanner/cryptoEncrypt';
 
 export default function QrCode({value, open, setOpen}) {
   
