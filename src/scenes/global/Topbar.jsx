@@ -3,14 +3,21 @@ import { useContext } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import { Link } from "react-router-dom";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+
+import { Link, useLocation } from "react-router-dom";
 
 
 const Topbar = ({setIsCollapsed}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
-
+  let {pathname} = useLocation();
+  
+    console.log(pathname)
+  
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
@@ -37,13 +44,14 @@ const Topbar = ({setIsCollapsed}) => {
 
       {/* ICONS */}
       <Box display="flex">
-        {/* <IconButton onClick={colorMode.toggleColorMode}>
+       <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
             <DarkModeOutlinedIcon />
           ) : (
             <LightModeOutlinedIcon />
           )}
         </IconButton>
+         {/* 
         <IconButton>
           <NotificationsOutlinedIcon />
         </IconButton>
@@ -52,9 +60,9 @@ const Topbar = ({setIsCollapsed}) => {
         </IconButton> */}
         <IconButton
             component={Link}
-            to="/qr-scanner"
+            to={ pathname === '/qr-scanner' ? "/" : "/qr-scanner"}
         >
-        <QrCodeScannerIcon/>
+        { pathname === '/qr-scanner' ? <HomeOutlinedIcon/> : <QrCodeScannerIcon/> }
         </IconButton>
       </Box>
     </Box>

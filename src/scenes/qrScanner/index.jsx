@@ -1,11 +1,11 @@
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import QrReader from 'react-qr-scanner'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const QrScanner = () => {
-const [result, setResult] = useState(null)
+const [result, setResult] = useState(null);
   const previewStyle = {
     height: "320px",
     width: "100%",
@@ -21,6 +21,12 @@ const [result, setResult] = useState(null)
     console.log(err)
   }
   
+  
+  useEffect(() => {
+        return () => {
+          setResult(null)
+        }
+  }, [])
   
   console.log(result)
   return (

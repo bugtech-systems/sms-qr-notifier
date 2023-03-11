@@ -60,11 +60,18 @@ const Contacts = () => {
     setSelected(e.row)
     setOpen(true)
   }
+  
+  
+  const handleClose = () => {
+        setOpen(false)
+        setSelected(null)
+    
+  }
 
 
   return (
     <Box m="20px">
-    <QrCode value={selected} open={open} setOpen={setOpen}/>
+    <QrCode value={selected} open={open} setOpen={handleClose}/>
       <Header
         title="STUDENTS"
         subtitle="List of Students Reference"
