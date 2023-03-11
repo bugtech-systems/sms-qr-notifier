@@ -2,10 +2,11 @@ import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import QrReader from 'react-qr-scanner'
 import { useEffect, useState } from "react";
-
+import FlipCameraIosIcon from '@mui/icons-material/FlipCameraIos';
 
 const QrScanner = () => {
 const [result, setResult] = useState(null);
+const [view, setView] = useState(false);
   const previewStyle = {
     height: "320px",
     width: "100%",
@@ -45,16 +46,30 @@ const [result, setResult] = useState(null);
         justifyContent="center"
         flexDirection="column"
       > 
+      <IconButton
+        onClick={() => setView(!view)}
+      >
+      <FlipCameraIosIcon/>
+      </IconButton>
+      {view ? 
         <QrReader
-         ViewFinder={function noRefCheck(){}}
-         constraints={{
-          facingMode: 'environment',
-         }}
+         key="environmentQR"
           delay={100}
+          facingMode="rear"
           style={previewStyle}
           onError={handleError}
           onScan={(e) => handleScan(e)}
           />
+          : 
+          <QrReader
+          key="userQr"
+          facingMode="front"
+          delay={100}
+           style={previewStyle}
+           onError={handleError}
+           onScan={(e) => handleScan(e)}
+           />
+          }
       {result && <p>{JSON.stringify(result)}</p>}
       </Box>
       
