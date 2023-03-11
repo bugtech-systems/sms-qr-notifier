@@ -70,7 +70,7 @@ const [view, setView] = useState(false);
            onScan={(e) => handleScan(e)}
            />
           }
-      {result && <p>{JSON.stringify(result)}</p>}
+      {result && <p>{JSON.stringify(result.text)}</p>}
       </Box>
       
     </Box>
