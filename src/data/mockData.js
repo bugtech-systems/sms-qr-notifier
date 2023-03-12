@@ -97,6 +97,17 @@ export const mockDataContacts = [
     city: "New York",
     zipCode: "13151",
     registrarId: 123512,
+  },
+  {
+    id: 2,
+    name: "Brix Delute",
+    email: "cerseilannister@gmail.com",
+    age: 42,
+    phone: "639363921740",
+    address: "1234 Main Street, New York, NY 10001",
+    city: "New York",
+    zipCode: "13151",
+    registrarId: 123513,
   }
 ];
 
