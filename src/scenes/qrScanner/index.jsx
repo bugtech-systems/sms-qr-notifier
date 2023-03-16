@@ -19,6 +19,9 @@ const [sent, setSent] = useState(false);
   }
   
   const handleSend = async (value) => {
+        
+    
+    
           let message = `Hi there, ${value.name} Scanned Qr at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!`;
       await axios.post(`${API_URL}/send`, {phone: value.phone, message, isFlush: true})
       .then(({data}) => {
@@ -33,6 +36,7 @@ const [sent, setSent] = useState(false);
   
   
   const handleScan = (data) => {
+
     if(!data) return ;
     let value = mockDataContacts.find(a => a.registrarId == data.text);
 
@@ -69,12 +73,19 @@ const [sent, setSent] = useState(false);
         justifyContent="center"
         flexDirection="column"
       > 
-      {result && result.id ?  <Button variant="contained" color="secondary" onClick={() => { setResult(null); setSent(false)}}>
+      {result && result.id ?  <Button variant="contained" color="secondary" onClick={() => { setResult(null); setSent(false); 
+    navigator.geolocation.getCurrentPosition((val) => alert(JSON.stringify(val)));
+          
+      }}>
       <span>
       Scan Again</span>
       </Button> :
       <IconButton
-        onClick={() => setView(!view)}
+      onClick={() => {
+        setView(!view) 
+        navigator.geolocation.getCurrentPosition(({coords}) => console.log({lat: coords.latitude, lng: coords.longitude}));
+
+        }}
       >
       <FlipCameraIosIcon/>
       </IconButton>}
