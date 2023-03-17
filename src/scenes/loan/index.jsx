@@ -7,7 +7,7 @@ import { useTheme } from "@mui/material";
 import QrCode from "../../components/QrCode";
 import { useState } from "react";
 
-const Contacts = () => {
+const Loans = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState(null);
@@ -73,8 +73,8 @@ const Contacts = () => {
     <Box m="20px">
     <QrCode value={selected} open={open} setOpen={handleClose}/>
       <Header
-        title="STUDENTS"
-        subtitle="List of Students Reference"
+        title="LOAN MANAGER"
+        subtitle="Loan forecast Reference"
       />
       <Box
         m="40px 0 0 0"
@@ -121,4 +121,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Loans;

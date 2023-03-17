@@ -16,6 +16,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import QrScanner from './scenes/qrScanner';
+import LoanManager from './scenes/loan';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contacts" element={<Contacts />} />
+              <Route path="/loan-manager" element={<LoanManager />} />
               <Route path="/qr-scanner" element={<QrScanner />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />

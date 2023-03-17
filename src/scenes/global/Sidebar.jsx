@@ -130,6 +130,13 @@ const Sidebar = ({isCollapsed, setIsCollapsed, setSelected, selected}) => {
               setSelected={setSelected}
             /> */}
             <Item
+              title="Loan Manager"
+              to="/loan-manager"
+              icon={<ContactsOutlinedIcon />}
+              selected={selected}
+              setSelected={handleSelect}
+            />
+              <Item
               title="Students Information"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}

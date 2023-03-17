@@ -23,7 +23,7 @@ const [sent, setSent] = useState(false);
     
     
           let message = `Hi there, ${value.name} Scanned Qr at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!`;
-      await axios.post(`${API_URL}/send`, {phone: value.phone, message, isFlush: true})
+      await axios.post(`${API_URL}/text/send`, {phone: value.phone, message, isFlush: true})
       .then(({data}) => {
         console.log(data)
         setSent(true)
