@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import QrCode from "../../components/QrCode";
-
+import FormDialog from '../../components/FormDialog';
 //Redux
 import { useSelector } from "react-redux";
 
@@ -16,6 +15,7 @@ const Contacts = () => {
   const {students} = useSelector(({dataReducer}) => dataReducer)
   const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
+  const [dialog, setDialog] = useState(false);
 
   const columns = [
     {
@@ -59,8 +59,6 @@ const Contacts = () => {
   }
   
 
-  console.log(students)
-  console.log(mockDataContacts)
   
   return (
     <Box m="20px">
@@ -69,6 +67,8 @@ const Contacts = () => {
         title="STUDENTS"
         subtitle="List of Students Reference"
       />
+    <FormDialog open={dialog} setOpen={setDialog} />
+      
       <Box
         m="40px 0 0 0"
         height="75vh"

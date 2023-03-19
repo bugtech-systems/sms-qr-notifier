@@ -8,6 +8,7 @@ export const SET_USER = 'SET_USER';
 
 //DATA
 export const SET_STUDENTS = 'SET_STUDENTS';
+export const SET_STUDENT = 'SET_STUDENT';
 
 
 

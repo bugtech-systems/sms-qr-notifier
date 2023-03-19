@@ -1,7 +1,13 @@
-import {SET_STUDENTS} from "../actions/types";
+import {SET_STUDENT, SET_STUDENTS} from "../actions/types";
 
 const INIT_STATE = {
-    students: []
+    students: [],
+    student: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+    }
 };
 
 export default (state = INIT_STATE, action) => {
@@ -12,6 +18,13 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         students: payload
+      };
+    }
+    
+    case SET_STUDENT: {
+      return {
+        ...state,
+        student: payload
       };
     }
     default:

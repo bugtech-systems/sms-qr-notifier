@@ -14,3 +14,14 @@ export const getAllStudents = () => async dispatch => {
     return response.data;
   });
 };
+
+
+export const createRecord = (data) => async dispatch => {
+  return await axios
+  .post(BUBU_API_URL + "/students/create", data)
+  .then((response) => {
+    dispatch(getAllStudents());
+    return response.data;
+  });
+};
+

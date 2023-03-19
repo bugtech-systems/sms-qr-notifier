@@ -21,9 +21,6 @@ const [sent, setSent] = useState(false);
   }
   
   const handleSend = async (value) => {
-        
-    
-    
           let message = `Hi there, ${value.firstName} ${value.lastName} Scanned Qr at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!`;
       await axios.post(`${API_URL}/text/send`, {phones: [value.phone], message, isFlush})
       .then(({data}) => {
@@ -36,14 +33,9 @@ const [sent, setSent] = useState(false);
   
   
   const handleScan = (data) => {
-    console.log(data)
-    console.log(data.text)
-
     if(result) return;
     if(!data) return ;
     let value = students.find(a => a.code === data.text);
-    console.log(students)
-    console.log(value)
     setResult(value);
     handleSend(value)
   }
@@ -91,7 +83,7 @@ const [sent, setSent] = useState(false);
       </IconButton>}
       <br/>
       {result && result._id ? 
-          result && <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column"><p>{result.firstName + ' ' + result.lastName}</p> {sent && <p>Message Sent!</p>}</Box> : 
+          result && <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column"><p>{result.firstName + ' ' + result.lastName}</p><p>{result.email}</p> {sent && <p>Message Sent!</p>}</Box> : 
       
       view ? 
         <QrReader

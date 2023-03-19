@@ -1,34 +1,38 @@
 import { Box, Button, TextField } from "@mui/material";
-import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_STUDENT } from "../../redux/actions/types";
+import { createRecord } from "../../redux/actions/Data";
 
-const Form = () => {
+
+const Form = ({handleClose}) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-
-  const handleFormSubmit = (values) => {
-    console.log(values);
+  const { student } = useSelector(({dataReducer}) => dataReducer)
+  const dispatch = useDispatch()
+  
+  
+  const handleChange = prop => e => {
+    dispatch({type: SET_STUDENT, payload: {...student, [prop]: e.target.value}})
   };
+    
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(student)
+    dispatch(createRecord(student))
+    .then(() => {
+      handleClose()
+    })
+    console.log(student)
+  }
+
 
   return (
     <Box m="20px">
-      <Header title="CREATE USER" subtitle="Create a New User Profile" />
+      <Header title="CREATE RECORD" subtitle="Create a New Student Profile" />
 
-      <Formik
-        onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-        validationSchema={checkoutSchema}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-        }) => (
-          <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <Box
               display="grid"
               gap="30px"
@@ -42,12 +46,12 @@ const Form = () => {
                 variant="filled"
                 type="text"
                 label="First Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.firstName}
+                // onBlur={handleBlur}
+                onChange={handleChange('firstName')}
+                value={student.firstName}
                 name="firstName"
-                error={!!touched.firstName && !!errors.firstName}
-                helperText={touched.firstName && errors.firstName}
+                // error={!!touched.firstName && !!errors.firstName}
+                // helperText={touched.firstName && errors.firstName}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -55,12 +59,12 @@ const Form = () => {
                 variant="filled"
                 type="text"
                 label="Last Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.lastName}
+                // onBlur={handleBlur}
+                onChange={handleChange('lastName')}
+                value={student.lastName}
                 name="lastName"
-                error={!!touched.lastName && !!errors.lastName}
-                helperText={touched.lastName && errors.lastName}
+                // error={!!touched.lastName && !!errors.lastName}
+                // helperText={touched.lastName && errors.lastName}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
@@ -68,12 +72,12 @@ const Form = () => {
                 variant="filled"
                 type="text"
                 label="Email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.email}
+                // onBlur={handleBlur}
+                onChange={handleChange('email')}
+                value={student.email}
                 name="email"
-                error={!!touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
+                // error={!!touched.email && !!errors.email}
+                // helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
@@ -81,49 +85,25 @@ const Form = () => {
                 variant="filled"
                 type="text"
                 label="Contact Number"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.contact}
+                // onBlur={handleBlur}
+                onChange={handleChange('phone')}
+                value={student.phone}
                 name="contact"
-                error={!!touched.contact && !!errors.contact}
-                helperText={touched.contact && errors.contact}
+                // error={!!touched.phone && !!errors.phone}
+                // helperText={touched.phone && errors.phone}
                 sx={{ gridColumn: "span 4" }}
               />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Address 1"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address1}
-                name="address1"
-                error={!!touched.address1 && !!errors.address1}
-                helperText={touched.address1 && errors.address1}
-                sx={{ gridColumn: "span 4" }}
-              />
-              <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Address 2"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.address2}
-                name="address2"
-                error={!!touched.address2 && !!errors.address2}
-                helperText={touched.address2 && errors.address2}
-                sx={{ gridColumn: "span 4" }}
-              />
+             
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
+            <Button color="secondary" variant="contained" onClick={() => handleClose()}>
+               Close
+              </Button>&nbsp;&nbsp;
               <Button type="submit" color="secondary" variant="contained">
                 Create New User
               </Button>
             </Box>
           </form>
-        )}
-      </Formik>
     </Box>
   );
 };
@@ -135,20 +115,16 @@ const checkoutSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
-  contact: yup
+  phone: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
-    .required("required"),
-  address1: yup.string().required("required"),
-  address2: yup.string().required("required"),
+    .required("required")
 });
 const initialValues = {
   firstName: "",
   lastName: "",
   email: "",
-  contact: "",
-  address1: "",
-  address2: "",
+  phone: "",
 };
 
 export default Form;
