@@ -25,3 +25,13 @@ export const createRecord = (data) => async dispatch => {
   });
 };
 
+
+
+export const deleteRecord = (data) => async dispatch => {
+  return await axios
+  .delete(BUBU_API_URL + `/students/deleteById/${data}`)
+  .then((response) => {
+    dispatch(getAllStudents());
+    return response.data;
+  });
+};

@@ -3,15 +3,25 @@ import QRCode from "react-qr-code";
 import Dialog from '@mui/material/Dialog';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useDispatch } from 'react-redux';
+import { deleteRecord } from '../redux/actions/Data';
 export default function QrCode({value, open, setOpen}) {
+    const dispatch = useDispatch();
+  
   
     const handleClose = () => {
           setOpen(false)
     }
+    
+    const handleDelete = () => {
+        dispatch(deleteRecord(value._id))
+        .then(() => {
+          handleClose()
+        })
+    }
   
   
-    console.log(value && value.code)
   return (
     <Dialog 
     fullScreen={true}
@@ -24,11 +34,16 @@ export default function QrCode({value, open, setOpen}) {
               edge="start"
               color="inherit"
               onClick={handleClose}
-              aria-label="close"
             >
               <CloseIcon />
             </IconButton>
-          
+            <Box flexGrow={1}/>
+            <IconButton
+              color="warning"
+              onClick={handleDelete}
+            >
+              <DeleteIcon />
+            </IconButton>
           </Toolbar>
     </AppBar>
     

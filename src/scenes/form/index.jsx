@@ -1,15 +1,16 @@
 import { Box, Button, TextField } from "@mui/material";
-import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_STUDENT } from "../../redux/actions/types";
 import { createRecord } from "../../redux/actions/Data";
-
+import { useState } from "react";
 
 const Form = ({handleClose}) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { student } = useSelector(({dataReducer}) => dataReducer)
+  const [errors, setErrors] = useState({
+  })
   const dispatch = useDispatch()
 
   
@@ -19,7 +20,9 @@ const Form = ({handleClose}) => {
     
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(student)
+    if(student.phone.length < 12) return setErrors({phone: "Please enter in this format +639xx"})
+    
+    
     dispatch(createRecord(student))
     .then(() => {
       handleClose()
@@ -88,9 +91,9 @@ const Form = ({handleClose}) => {
                 // onBlur={handleBlur}
                 onChange={handleChange('phone')}
                 value={student.phone}
-                name="contact"
-                // error={!!touched.phone && !!errors.phone}
-                // helperText={touched.phone && errors.phone}
+                name="phone"
+                error={errors.phone && errors.phone}
+                helperText={errors.phone ? errors.phone : "Ex: 639774461641"}
                 sx={{ gridColumn: "span 4" }}
               />
              
@@ -108,23 +111,6 @@ const Form = ({handleClose}) => {
   );
 };
 
-const phoneRegExp =
-  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
-const checkoutSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  phone: yup
-    .string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("required")
-});
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-};
 
 export default Form;
