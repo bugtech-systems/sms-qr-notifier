@@ -8,14 +8,12 @@ import { useTheme } from "@mui/material";
 import QrCode from "../../components/QrCode";
 
 //Redux
-import { useDispatch, useSelector } from "react-redux";
-import { getAllStudents } from '../../redux/actions/Data';
+import { useSelector } from "react-redux";
 
 const Contacts = () => {
   const theme = useTheme();
-  const dispatch = useDispatch();
   const colors = tokens(theme.palette.mode);
-  const [students, setStudents] = useState([])
+  const {students} = useSelector(({dataReducer}) => dataReducer)
   const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -51,18 +49,7 @@ const Contacts = () => {
     setOpen(true)
   }
   
-  const handleGetStudents = () => {
-    dispatch(getAllStudents())
-    .then((data) => {
-      console.log(data);
-      let newStudents = data.map(doc => {
-        return {id: doc._id, ...doc}
-      }) 
-        setStudents(newStudents)
-    })
-    .catch(err => {
-    console.log(err)})
-  }
+
   
   
   const handleClose = () => {
@@ -71,9 +58,7 @@ const Contacts = () => {
     
   }
   
-  useEffect(() => {
-    handleGetStudents()
-  }, [])
+
   console.log(students)
   console.log(mockDataContacts)
   

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
@@ -17,16 +17,29 @@ import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calendar/calendar";
 import QrScanner from './scenes/qrScanner';
 import LoanManager from './scenes/loan';
+import { getAllStudents } from "./redux/actions/Data";
+import { useDispatch } from "react-redux";
 
 
 
 
 
 function App() {
+  const dispatch = useDispatch();
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selected, setSelected] = useState("Dashboard");
+
+  const handleGetStudents = () => {
+    dispatch(getAllStudents())
+  }
+  
+  
+  useEffect(() => {
+    handleGetStudents()
+  }, [])
+
 
   return (
   
