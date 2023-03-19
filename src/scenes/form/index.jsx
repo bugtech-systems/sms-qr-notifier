@@ -11,7 +11,7 @@ const Form = ({handleClose}) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { student } = useSelector(({dataReducer}) => dataReducer)
   const dispatch = useDispatch()
-  
+
   
   const handleChange = prop => e => {
     dispatch({type: SET_STUDENT, payload: {...student, [prop]: e.target.value}})

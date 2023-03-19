@@ -1,7 +1,8 @@
-import {SET_STUDENT, SET_STUDENTS} from "../actions/types";
+import {SET_FLUSH, SET_STUDENT, SET_STUDENTS} from "../actions/types";
 
 const INIT_STATE = {
     students: [],
+    isFlush: false,
     student: {
       firstName: "",
       lastName: "",
@@ -20,11 +21,16 @@ export default (state = INIT_STATE, action) => {
         students: payload
       };
     }
-    
     case SET_STUDENT: {
       return {
         ...state,
         student: payload
+      };
+    }
+    case SET_FLUSH: {
+      return {
+        ...state,
+        isFlush: payload
       };
     }
     default:
