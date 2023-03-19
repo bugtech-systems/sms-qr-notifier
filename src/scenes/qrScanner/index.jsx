@@ -36,9 +36,14 @@ const [sent, setSent] = useState(false);
   
   
   const handleScan = (data) => {
+    console.log(data)
+    console.log(data.text)
 
+    if(result) return;
     if(!data) return ;
-    let value = students.find(a => String(a.code) === String(data.text));
+    let value = students.find(a => a.code === data.text);
+    console.log(students)
+    console.log(value)
     setResult(value);
     handleSend(value)
   }
