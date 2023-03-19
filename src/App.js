@@ -19,6 +19,9 @@ import QrScanner from './scenes/qrScanner';
 import LoanManager from './scenes/loan';
 
 
+
+
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -26,6 +29,7 @@ function App() {
   const [selected, setSelected] = useState("Dashboard");
 
   return (
+  
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />

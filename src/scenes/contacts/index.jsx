@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
@@ -5,29 +6,31 @@ import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import QrCode from "../../components/QrCode";
-import { useState } from "react";
+
+//Redux
+import { useDispatch, useSelector } from "react-redux";
+import { getAllStudents } from '../../redux/actions/Data';
 
 const Contacts = () => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const colors = tokens(theme.palette.mode);
+  const [students, setStudents] = useState([])
   const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "firstName",
+      headerName: "First Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
+      field: "lastName",
+      headerName: "Last Name",
+      flex: 1,
+      cellClassName: "name-column--cell",
     },
     {
       field: "phone",
@@ -39,26 +42,26 @@ const Contacts = () => {
       headerName: "Email",
       flex: 1,
     },
-    {
-      field: "address",
-      headerName: "Address",
-      flex: 1,
-    },
-    {
-      field: "city",
-      headerName: "City",
-      flex: 1,
-    },
-    {
-      field: "zipCode",
-      headerName: "Zip Code",
-      flex: 1,
-    },
+    { field: "code", headerName: "Registrar ID" }
+    
   ];
 
   const handleClick = (e) => {
     setSelected(e.row)
     setOpen(true)
+  }
+  
+  const handleGetStudents = () => {
+    dispatch(getAllStudents())
+    .then((data) => {
+      console.log(data);
+      let newStudents = data.map(doc => {
+        return {id: doc._id, ...doc}
+      }) 
+        setStudents(newStudents)
+    })
+    .catch(err => {
+    console.log(err)})
   }
   
   
@@ -67,8 +70,13 @@ const Contacts = () => {
         setSelected(null)
     
   }
-
-
+  
+  useEffect(() => {
+    handleGetStudents()
+  }, [])
+  console.log(students)
+  console.log(mockDataContacts)
+  
   return (
     <Box m="20px">
     <QrCode value={selected} open={open} setOpen={handleClose}/>
@@ -109,7 +117,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={students}
           columns={columns}
           density="compact"
           components={{ Toolbar: GridToolbar }}

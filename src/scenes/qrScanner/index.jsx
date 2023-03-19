@@ -7,9 +7,11 @@ import { API_URL } from "../../commonData";
 import axios from 'axios';
 import moment from 'moment'
 import { mockDataContacts } from "../../data/mockData";
+import { useSelector } from "react-redux";
 
 
 const QrScanner = () => {
+const {students, isFlush} = useSelector(({dataReducer}) => dataReducer)
 const [result, setResult] = useState(null);
 const [view, setView] = useState(false);
 const [sent, setSent] = useState(false);
@@ -22,25 +24,21 @@ const [sent, setSent] = useState(false);
         
     
     
-          let message = `Hi there, ${value.name} Scanned Qr at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!`;
-      await axios.post(`${API_URL}/text/send`, {phones: [value.phone], message, isFlush: true})
+          let message = `Hi there, ${value.firstName} ${value.lastName} Scanned Qr at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!`;
+      await axios.post(`${API_URL}/text/send`, {phones: [value.phone], message, isFlush})
       .then(({data}) => {
         console.log(data)
         setSent(true)
       }).catch(err => {
         console.log(err)
       })
-  
-  
   }
   
   
   const handleScan = (data) => {
 
     if(!data) return ;
-    let value = mockDataContacts.find(a => a.registrarId == data.text);
-
-    
+    let value = students.find(a => String(a.code) === String(data.text));
     setResult(value);
     handleSend(value)
   }
@@ -73,9 +71,7 @@ const [sent, setSent] = useState(false);
         justifyContent="center"
         flexDirection="column"
       > 
-      {result && result.id ?  <Button variant="contained" color="secondary" onClick={() => { setResult(null); setSent(false); 
-    navigator.geolocation.getCurrentPosition((val) => alert(JSON.stringify(val)));
-          
+      {result && result._id ?  <Button variant="contained" color="secondary" onClick={() => { setResult(null); setSent(false); 
       }}>
       <span>
       Scan Again</span>
@@ -83,15 +79,14 @@ const [sent, setSent] = useState(false);
       <IconButton
       onClick={() => {
         setView(!view) 
-        navigator.geolocation.getCurrentPosition(({coords}) => console.log({lat: coords.latitude, lng: coords.longitude}));
 
         }}
       >
       <FlipCameraIosIcon/>
       </IconButton>}
       <br/>
-      {result && result.id ? 
-          result && <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column"><p>{result.name}</p> {sent && <p>Message Sent!</p>}</Box> : 
+      {result && result._id ? 
+          result && <Box display="flex" alignItems="center" justifyContent="center" flexDirection="column"><p>{result.firstName + ' ' + result.lastName}</p> {sent && <p>Message Sent!</p>}</Box> : 
       
       view ? 
         <QrReader
