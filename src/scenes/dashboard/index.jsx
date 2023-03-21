@@ -13,7 +13,9 @@ import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import QrCode from '../../components/QrCode';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -49,11 +51,11 @@ const Dashboard = () => {
         >
           <StatBox
             title="12,361"
-            subtitle="SMS Sent"
+            subtitle="Entry Fund"
             progress="0.75"
             increase="+14%"
             icon={
-              <EmailIcon
+              <GroupAddIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -106,11 +108,11 @@ const Dashboard = () => {
         >
           <StatBox
             title="1,325,134"
-            subtitle="Entrance Traffic"
+            subtitle="Pairing Bonus"
             progress="0.80"
             increase="+43%"
             icon={
-              <TrafficIcon
+              <Diversity3Icon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }

@@ -12,6 +12,8 @@ import Switch from '@mui/material/Switch';
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_FLUSH } from "../../redux/actions/types";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
 
 const Topbar = ({setIsCollapsed}) => {
   const theme = useTheme();
@@ -47,9 +49,9 @@ const Topbar = ({setIsCollapsed}) => {
                 >
                   <MenuOutlinedIcon />
                 </IconButton>
-                <FormGroup>
+                {/* <FormGroup>
                    <FormControlLabel control={<Switch color="secondary" checked={isFlush} onChange={() => dispatch({type: SET_FLUSH, payload: !isFlush})} />} label="Flash" />
-                </FormGroup>
+                </FormGroup> */}
               </Box>
 
       {/* ICONS */}
@@ -61,19 +63,19 @@ const Topbar = ({setIsCollapsed}) => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-         {/* 
+         
         <IconButton>
-          <NotificationsOutlinedIcon />
+          <NotificationsIcon />
         </IconButton>
-        <IconButton>
+        {/* <IconButton>
           <SettingsOutlinedIcon />
         </IconButton> */}
-        <IconButton
+        {/* <IconButton
             component={Link}
             to={ pathname === '/qr-scanner' ? "/" : "/qr-scanner"}
         >
         { pathname === '/qr-scanner' ? <HomeOutlinedIcon/> : <QrCodeScannerIcon/> }
-        </IconButton>
+        </IconButton> */}
       </Box>
     </Box>
   );

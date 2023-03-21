@@ -17,6 +17,8 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -87,7 +89,7 @@ const Sidebar = ({isCollapsed, setIsCollapsed, setSelected, selected}) => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={`../../assets/angas.jpg`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -98,10 +100,10 @@ const Sidebar = ({isCollapsed, setIsCollapsed, setSelected, selected}) => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                Jayburge
+                Tom Ocop
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                Junior Citizen
+                Senior Director
                 </Typography>
               </Box>
             </Box>
@@ -137,9 +139,16 @@ const Sidebar = ({isCollapsed, setIsCollapsed, setSelected, selected}) => {
               setSelected={handleSelect}
             /> */}
               <Item
-              title="Students Information"
-              to="/contacts"
+              title="Members Queue"
+              to="/members-que"
               icon={<ContactsOutlinedIcon />}
+              selected={selected}
+              setSelected={handleSelect}
+            />
+              <Item
+              title="Genealogy Tree"
+              to="/genealogy-tree"
+              icon={<AccountTreeIcon />}
               selected={selected}
               setSelected={handleSelect}
             />
