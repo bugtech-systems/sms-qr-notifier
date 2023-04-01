@@ -96,7 +96,19 @@ const Form = ({handleClose}) => {
                 helperText={errors.phone ? errors.phone : "Ex: 639774461641"}
                 sx={{ gridColumn: "span 4" }}
               />
-             
+               <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Code"
+                // onBlur={handleBlur}
+                onChange={handleChange('code')}
+                value={student.code}
+                name="code"
+                error={errors.code && errors.code}
+                helperText={errors.code && errors.code }
+                sx={{ gridColumn: "span 4" }}
+              />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
             <Button color="secondary" variant="contained" onClick={() => handleClose()}>

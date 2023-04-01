@@ -40,7 +40,7 @@ const Contacts = () => {
       headerName: "Email",
       flex: 1,
     },
-    { field: "code", headerName: "Registrar ID" }
+    // { field: "code", headerName: "Registrar ID" }
     
   ];
 
