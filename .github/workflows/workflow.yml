@@ -3,7 +3,7 @@ name: Bubu Web application
 on:
   push:
    branches:
-      - master
+      - development
 
 jobs:
   build:
@@ -37,7 +37,7 @@ jobs:
           password: 420230
           port: 22
           script: |
-              cd /var/www/react-admin-dashboard
+              cd /media/bugtech/productions/www/bubu/client
               git pull
               export NVM_DIR=~/.nvm
               source ~/.nvm/nvm.sh

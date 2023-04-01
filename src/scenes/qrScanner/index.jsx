@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, ToggleButton, ToggleButtonGroup, Typography, useTheme } from "@mui/material";
 import Header from "../../components/Header";
 import QrReader from 'react-qr-scanner'
 import { useEffect, useState } from "react";
@@ -8,6 +8,9 @@ import axios from 'axios';
 import moment from 'moment'
 import { mockDataContacts } from "../../data/mockData";
 import { useSelector } from "react-redux";
+import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+
 
 
 const QrScanner = () => {
@@ -58,7 +61,18 @@ const [sent, setSent] = useState(false);
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="QR SCANNER" subtitle="Scan QR Code" />
-
+        <ToggleButtonGroup
+        value={view}
+        onChange={(e) => console.log(e)}
+        aria-label="device"
+      >
+        <ToggleButton value="qr" aria-label="qr">
+          <QrCodeScannerIcon />
+        </ToggleButton>
+        <ToggleButton value="rfid" aria-label="rfid">
+          < DocumentScannerIcon/>
+        </ToggleButton>
+      </ToggleButtonGroup>
       </Box>
 
       {/* GRID & CHARTS */}
