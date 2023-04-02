@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import { getAttendance, scanCode } from "../../redux/actions/Data";
-
-
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import FaceRecog from '../facerecog/FaceDetection';
 
 
 
@@ -42,6 +42,21 @@ const [sent, setSent] = useState(false);
     }
   }
   
+  const handleSend = async (student) => {
+  console.log(student)
+    let message = student.isPresent ? `Hi there, ${student.firstName} ${student.lastName} is entering school premises at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!` :  `Hi there, ${student.firstName} ${student.lastName} is exiting school premises at ${moment().format("dddd, MMMM Do YYYY, h:mm:ss a")}. Thank you!` 
+    
+    await axios.post(`${API_URL}/text/send`, {phone: student.phone, message, isFlush: isFlush === true ? true : false})
+    .then(({data}) => {
+      setSent(true)
+    }).catch(err => {
+      console.log(err)
+    })  
+    
+    
+  }
+  
+  
   const handleScan = (data) => {
     if(result) return;
     if(!data) return ;
@@ -53,8 +68,6 @@ const [sent, setSent] = useState(false);
     console.log('weaewa')
       dispatch(getAttendance());
        setResult(val.data);
-
-        setSent(true)
     })
     .catch(err => {
       console.log(err)
@@ -74,7 +87,10 @@ const [sent, setSent] = useState(false);
           setResult(null)
         }
   }, [])
-  
+    
+    
+      console.log(view)
+    
   return (
     <Box m="20px"
     >
@@ -92,6 +108,9 @@ const [sent, setSent] = useState(false);
         </ToggleButton>
         <ToggleButton value="rfid" aria-label="rfid">
           < DocumentScannerIcon/>
+        </ToggleButton>
+        <ToggleButton value="face" aria-label="face">
+          < AccountBoxIcon/>
         </ToggleButton>
       </ToggleButtonGroup>
       </Box>
@@ -112,7 +131,7 @@ const [sent, setSent] = useState(false);
       <span>
       Scan Again</span>
       </Button>
-          </Box>: 
+          </Box> : 
     view === "qr" ? 
           <QrReader
           delay={100}
@@ -120,12 +139,12 @@ const [sent, setSent] = useState(false);
            onError={handleError}
            onScan={(e) => handleScan(e && e.text)}
            />
-           :
+           : view === 'rfid' ? 
             <TextField
               autoFocus={true}
               variant="outlined"
               onChange={(e) => handleScan(e.target.value)}
-            />
+            />  : view === 'face' && <FaceRecog/>
        }
       </Box>
       

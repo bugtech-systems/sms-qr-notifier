@@ -216,7 +216,7 @@ useEffect(() => {
                   {student.phone}
                 </Typography>
               </Box>
-              <Box flexGrow={1} display="flex" alignItems="center" justifyContent="center" color={colors.grey[100]}>{moment(attendance.createdAt).format('L')}</Box>
+              <Box flexGrow={1} display="flex" alignItems="center" justifyContent="center" color={colors.grey[100]}>{moment(attendance.createdAt).format('LLL')}</Box>
               <Box
                 backgroundColor={attendance.attendanceType === 'OUT' ? colors.redAccent[500] : colors.greenAccent[500]}
                 p="5px 10px"
