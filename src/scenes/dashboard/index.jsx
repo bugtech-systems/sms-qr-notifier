@@ -7,17 +7,33 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
-import QrCode from '../../components/QrCode';
-
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAttendance } from "../../redux/actions/Data";
+import moment from "moment";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const { attendances, smsSend, schoolTraffic, students } = useSelector(({dataReducer}) => dataReducer)
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  
+
+const handleAttendances = () => {
+    dispatch(getAttendance())
+}
+
+
+
+
+
+useEffect(() => {
+      handleAttendances()
+}, [])
+
+
+  
 
   return (
     <Box m="20px">
@@ -48,10 +64,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="SMS Sent"
-            progress="0.75"
-            increase="+14%"
+            title={smsSend}
+            subtitle="SMS SENT"
+            progress={smsSend ? smsSend / 1000 : 0}
+            increase={smsSend !== 0 && `${(smsSend / 1000) }%`}
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -105,10 +121,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="1,325,134"
-            subtitle="Entrance Traffic"
-            progress="0.80"
-            increase="+43%"
+            title={schoolTraffic}
+            subtitle="SCHOOL TRAFFIC"
+            progress={schoolTraffic !== 0 && schoolTraffic / students.length}
+            increase={schoolTraffic !== 0 && `${(schoolTraffic / students.length) * 100}%`}
             icon={
               <TrafficIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -176,9 +192,11 @@ const Dashboard = () => {
               Recent Transactions
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {attendances.map((attendance, i) => {
+              let { student } = attendance;
+          return (
             <Box
-              key={`${transaction.txId}-${i}`}
+              key={`${student._id}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -191,22 +209,24 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  {student.firstName} {student.lastName}
                 </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                <Typography
+                >
+                  {student.phone}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              <Box flexGrow={1} display="flex" alignItems="center" justifyContent="center" color={colors.grey[100]}>{moment(attendance.createdAt).format('L')}</Box>
               <Box
-                backgroundColor={colors.greenAccent[500]}
+                backgroundColor={attendance.attendanceType === 'OUT' ? colors.redAccent[500] : colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ${transaction.cost}
+                {attendance.attendanceType}
               </Box>
             </Box>
-          ))}
+          )}
+          )}
         </Box>
 
         {/* ROW 3 */}
