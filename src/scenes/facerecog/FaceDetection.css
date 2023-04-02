@@ -16,13 +16,6 @@ canvas {
 	position: absolute;
 }
 
-h2 {
-	text-align: center;
-	background-color: black;
-	color: white;
-	border-radius: 3rem;
-}
-
 div.students {
 	text-align: center;
 	max-width: 500px;
