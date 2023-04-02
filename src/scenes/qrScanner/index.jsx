@@ -66,6 +66,7 @@ const [sent, setSent] = useState(false);
     .then((val) => {
     console.log(val)
     console.log('weaewa')
+      handleSend(val.data)
       dispatch(getAttendance());
        setResult(val.data);
     })
