@@ -98,10 +98,10 @@ const Sidebar = ({isCollapsed, setIsCollapsed, setSelected, selected}) => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                Jayburge
+               Bugtech
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                Junior Citizen
+                Software Developer
                 </Typography>
               </Box>
             </Box>
